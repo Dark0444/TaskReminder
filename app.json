@@ -4,12 +4,7 @@
     "slug": "task-reminder",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "runtimeVersion": "1.0.0",
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTabletMode": true,
@@ -17,16 +12,12 @@
     },
     "android": {
       "package": "com.taskreminder.app",
-      "versionCode": 1,
       "permissions": [
         "INTERNET",
         "RECEIVE_BOOT_COMPLETED",
         "VIBRATE",
         "ACCESS_NOTIFICATION_POLICY"
       ]
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [
