@@ -1,0 +1,45 @@
+name: Bundle check
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          set +e
+          npm install --legacy-peer-deps > install.txt 2>&1
+          code=$?
+          if [ $code -ne 0 ]; then
+            msg=$(grep -iE "error|ETARGET|notarget|ERESOLVE" install.txt | head -30 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=npm install failed::$msg"
+            exit 1
+          fi
+
+      - name: Expo doctor
+        continue-on-error: true
+        run: |
+          npx --yes expo-doctor > doctor.txt 2>&1
+          msg=$(tail -60 doctor.txt | sed ':a;N;$!ba;s/\n/%0A/g')
+          echo "::warning title=expo-doctor::$msg"
+
+      - name: Metro bundle (same step that fails in EAS)
+        run: |
+          set +e
+          npx expo export --platform android > bundle.txt 2>&1
+          code=$?
+          if [ $code -ne 0 ]; then
+            msg=$(grep -v "^$" bundle.txt | tail -40 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=Metro bundle failed::$msg"
+            exit 1
+          fi
+          echo "::notice title=Metro bundle OK::bundle succeeded"
