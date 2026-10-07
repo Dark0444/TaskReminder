@@ -5,20 +5,35 @@
   "build": {
     "production": {
       "node": "18.17.0",
+      "npm": "10.0.0",
       "env": {
-        "EAS_BUILD_NO_EXPO_GO_WARNING": "true"
+        "EAS_BUILD_NO_EXPO_GO_WARNING": "true",
+        "GRADLE_OPTS": "-Dorg.gradle.jvmargs=\"-Xmx4096m\""
+      },
+      "android": {
+        "gradleCache": true
       }
     },
     "preview": {
+      "npm": "10.0.0",
       "env": {
-        "EAS_BUILD_NO_EXPO_GO_WARNING": "true"
+        "EAS_BUILD_NO_EXPO_GO_WARNING": "true",
+        "GRADLE_OPTS": "-Dorg.gradle.jvmargs=\"-Xmx4096m\""
+      },
+      "android": {
+        "gradleCache": true
       }
     },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
+      "npm": "10.0.0",
       "env": {
-        "EAS_BUILD_NO_EXPO_GO_WARNING": "true"
+        "EAS_BUILD_NO_EXPO_GO_WARNING": "true",
+        "GRADLE_OPTS": "-Dorg.gradle.jvmargs=\"-Xmx4096m\""
+      },
+      "android": {
+        "gradleCache": true
       }
     }
   },
