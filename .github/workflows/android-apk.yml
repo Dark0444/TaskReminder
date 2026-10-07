@@ -5,10 +5,13 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   apk:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -20,10 +23,54 @@ jobs:
           java-version: '17'
 
       - name: Install dependencies
-        run: npm install --legacy-peer-deps
+        run: |
+          set +e
+          npm install --legacy-peer-deps > install.txt 2>&1
+          code=$?
+          if [ $code -ne 0 ]; then
+            msg=$(grep -iE "error|ETARGET|notarget|ERESOLVE" install.txt | head -30 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=npm install failed::$msg"
+            exit 1
+          fi
+
+      - name: Align versions with Expo SDK
+        run: |
+          set +e
+          npx expo install --fix -- --legacy-peer-deps > fix.txt 2>&1
+          d=$(git diff package.json | grep '^[+-] ' | head -30 | sed ':a;N;$!ba;s/\n/%0A/g')
+          echo "::notice title=Version changes by expo install --fix::${d:-none}"
+
+      - name: Unit tests
+        continue-on-error: true
+        run: |
+          set +e
+          npx jest --ci > jest.txt 2>&1
+          code=$?
+          msg=$(tail -40 jest.txt | sed ':a;N;$!ba;s/\n/%0A/g')
+          if [ $code -ne 0 ]; then echo "::warning title=Jest failed::$msg"; else echo "::notice title=Jest OK::tests passed"; fi
+
+      - name: Metro bundle check
+        run: |
+          set +e
+          npx expo export --platform android > bundle.txt 2>&1
+          code=$?
+          if [ $code -ne 0 ]; then
+            msg=$(grep -v "^$" bundle.txt | tail -40 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=Metro bundle failed::$msg"
+            exit 1
+          fi
+          echo "::notice title=Metro bundle OK::JS bundle compiled"
 
       - name: Generate native Android project
-        run: npx expo prebuild --platform android --no-install
+        run: |
+          set +e
+          npx expo prebuild --platform android --no-install > prebuild.txt 2>&1
+          code=$?
+          if [ $code -ne 0 ]; then
+            msg=$(grep -v "^$" prebuild.txt | tail -30 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=Prebuild failed::$msg"
+            exit 1
+          fi
 
       - name: Build release APK
         run: |
@@ -43,3 +90,15 @@ jobs:
         with:
           name: TaskReminder-apk
           path: android/app/build/outputs/apk/release/*.apk
+
+      - name: Publish download link (GitHub Release)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp android/app/build/outputs/apk/release/app-release.apk TaskReminder.apk
+          gh release delete apk-latest --cleanup-tag -y || true
+          gh release create apk-latest TaskReminder.apk \
+            --title "Task Reminder (última versión)" \
+            --notes "APK compilado automáticamente desde el commit ${GITHUB_SHA::7}. Descárgalo e instálalo encima de la versión anterior." \
+            --latest
+          echo "::notice title=Download::https://github.com/${GITHUB_REPOSITORY}/releases/download/apk-latest/TaskReminder.apk"

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Task Reminder",
     "slug": "task-reminder",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "runtimeVersion": "1.0.0",
     "assetBundlePatterns": [
@@ -14,25 +14,33 @@
     },
     "android": {
       "package": "com.taskreminder.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#6D4AFF"
+      },
       "permissions": [
         "INTERNET",
         "RECEIVE_BOOT_COMPLETED",
         "VIBRATE",
-        "ACCESS_NOTIFICATION_POLICY"
+        "POST_NOTIFICATIONS",
+        "SCHEDULE_EXACT_ALARM",
+        "USE_EXACT_ALARM"
       ]
     },
     "plugins": [
       [
         "expo-notifications",
         {
-          "color": "#ffffff"
+          "icon": "./assets/notification-icon.png",
+          "color": "#7C5CFF"
         }
       ]
     ],
     "scheme": "taskreminder",
     "splash": {
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0A0C14"
     },
-    "userInterfaceStyle": "light"
+    "userInterfaceStyle": "automatic",
+    "icon": "./assets/icon.png"
   }
 }
