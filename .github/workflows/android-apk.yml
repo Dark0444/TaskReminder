@@ -1,0 +1,45 @@
+name: Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android --no-install
+
+      - name: Build release APK
+        run: |
+          set +e
+          cd android
+          ./gradlew assembleRelease --no-daemon --console=plain > ../gradle.txt 2>&1
+          code=$?
+          cd ..
+          if [ $code -ne 0 ]; then
+            msg=$(grep -E "What went wrong|error:|ERROR:|Execution failed|not found|FAILED" -A2 gradle.txt | head -40 | sed ':a;N;$!ba;s/\n/%0A/g')
+            echo "::error title=Gradle build failed::$msg"
+            exit 1
+          fi
+          echo "::notice title=APK built::assembleRelease succeeded"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TaskReminder-apk
+          path: android/app/build/outputs/apk/release/*.apk
