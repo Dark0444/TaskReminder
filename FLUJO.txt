@@ -1,0 +1,179 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    TASK REMINDER - FLUJO COMPLETO                          ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌─ OPCIÓN 1: SIN PC (Recomendado) ─────────────────────────────────────────────┐
+│                                                                              │
+│  1. CREA CUENTA EXPO                                                         │
+│     └─→ https://expo.io  (Gratis, solo email)                               │
+│                                                                              │
+│  2. DESCARGA EL REPOSITORIO                                                 │
+│     └─→ git clone https://github.com/Dark0444/TaskReminder.git              │
+│         cd TaskReminder                                                      │
+│                                                                              │
+│  3. COMPILA EN LA NUBE                                                       │
+│     └─→ npm install -g eas-cli                                              │
+│         eas login  (con tu cuenta Expo)                                      │
+│         eas build --platform android                                         │
+│         (⏱️  Espera ~15 minutos)                                             │
+│                                                                              │
+│  4. DESCARGA APK                                                             │
+│     └─→ https://expo.io/dashboard → Descarga el APK                         │
+│                                                                              │
+│  5. INSTALA EN SAMSUNG S24 ULTRA                                            │
+│     └─→ Transfiere el APK → Abre → Instala → ¡Abre la app!                 │
+│                                                                              │
+│  ✅ TIEMPO TOTAL: ~25 MINUTOS                                               │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+┌─ OPCIÓN 2: CON PC (Control Total) ──────────────────────────────────────────┐
+│                                                                              │
+│  1. CLONA EL REPO                                                            │
+│     └─→ git clone https://github.com/Dark0444/TaskReminder.git              │
+│                                                                              │
+│  2. INSTALA DEPENDENCIAS                                                     │
+│     └─→ npm install                                                          │
+│                                                                              │
+│  3. COMPILA LOCALMENTE                                                       │
+│     └─→ Opción A: ./build.sh  (Script interactivo)                          │
+│         Opción B: npm run android  (Directo)                                │
+│         (⏱️  Espera ~10-15 minutos)                                          │
+│                                                                              │
+│  4. OBTÉN EL APK                                                             │
+│     └─→ android/app/build/outputs/apk/release/app-release.apk              │
+│                                                                              │
+│  5. TRANSFIERE E INSTALA                                                     │
+│     └─→ USB o Email → Samsung S24 Ultra → Instala                           │
+│                                                                              │
+│  ✅ TIEMPO TOTAL: ~20-30 MINUTOS                                            │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                      USANDO LA APP (En tu Samsung)                         ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+     ┌─────────────────────────────────────────────────────────┐
+     │  📋 TAREAS                                              │
+     │  ┌─────────────────────────────────────────────────────┐│
+     │  │ ➕ Crear Nueva Tarea                                 ││
+     │  │                                                      ││
+     │  │ [Título Tarea 1]      🔴 ALTA   ⏰ 14:30            ││
+     │  │ Descripción corta...   📅 Oct 6                      ││
+     │  │ ☐ Marcar completada                                 ││
+     │  │                                                      ││
+     │  │ [Título Tarea 2]      🟡 MEDIA  ⏰ 18:00            ││
+     │  │ Descripción corta...   📅 Oct 7                      ││
+     │  │ ☑ Tarea completada                                  ││
+     │  └─────────────────────────────────────────────────────┘│
+     │                                                          │
+     │  📅 CALENDARIO          │  ⚙️ CONFIGURACIÓN              │
+     └─────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                     FLUJO DE NOTIFICACIONES                                ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Creas Tarea con Recordatorio
+        │
+        ▼
+"Estudiar Matemáticas"
+📅 Oct 6, 2026
+🕐 14:30
+🔴 PRIORIDAD ALTA
+        │
+        ▼
+Se guarda en tu Samsung (AsyncStorage)
+        │
+        ▼
+En el calendario aparece: Oct 6 ● (punto azul)
+        │
+        ▼
+Llega la hora: 14:30
+        │
+        ▼
+¡NOTIFICACIÓN! 📲
+┌─────────────────────────────┐
+│ 🔔 Recordatorio de Tareas   │
+│                             │
+│ Estudiar Matemáticas        │
+│ Prioridad: ALTA             │
+│                             │
+│ Toca para ver detalles      │
+└─────────────────────────────┘
+
+┌─ Opciones ─────────────┐
+│ 🔊 Sonido: ACTIVADO     │
+│ 📳 Vibración: ACTIVADA  │
+│ 🔕 Notificaciones: ON   │
+└─────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                        CAMBIOS Y MEJORAS                                   ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Si quieres cambiar algo:
+    │
+    ▼
+Dime: "Cambiar [color/feature/diseño]"
+    │
+    ▼
+Yo modifico el código
+    │
+    ▼
+Ejecuto tests (12 pruebas automáticas)
+    │
+    ▼
+Recompilo APK automáticamente
+    │
+    ▼
+Descargas nueva versión
+    │
+    ▼
+¡Listo a usar!
+
+Ejemplos de cambios:
+  • "Cambiar a tema oscuro"
+  • "Agregar tareas recurrentes"
+  • "Cambiar los colores"
+  • "Agregar etiquetas a tareas"
+  • "Sincronizar con Google Calendar"
+  • "Agregar más opciones de prioridad"
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                       REQUISITOS TÉCNICOS                                  ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+SAMSUNG S24 ULTRA:
+  ✅ Android 6.0+ (tu teléfono tiene Android 15+)
+  ✅ ~50 MB de espacio
+  ✅ 2 GB de RAM mínimo (tu teléfono tiene 12 GB)
+  ✅ Permisos: Notificaciones, Vibración
+
+PARA COMPILAR (cualquier opción):
+  ✅ Node.js 16+ (https://nodejs.org)
+  ✅ npm (viene con Node.js)
+  ✅ Conexión a Internet
+
+OPCIONAL (solo si no usas Expo):
+  ✅ Android Studio
+  ✅ Java 11+
+  ✅ ANDROID_HOME configurado
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                            ¡LISTO!                                        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Tu app está:
+  ✅ 100% codificada
+  ✅ Probada con 12 tests automáticos
+  ✅ Lista para compilar
+  ✅ Lista para usar
+  ✅ Lista para personalizar
+
+Siguiente paso: Elige tu opción de compilación arriba y ¡comienza!
+
+---
+Generated: Oct 6, 2026
+Status: ✅ Production Ready
