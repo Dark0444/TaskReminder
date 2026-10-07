@@ -1,0 +1,41 @@
+{
+  "name": "task-reminder",
+  "version": "1.0.0",
+  "description": "App de tareas con recordatorios, calendario y notificaciones",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo build:android",
+    "ios": "expo build:ios",
+    "web": "expo start --web",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "expo": "^51.0.0",
+    "expo-notifications": "^0.27.0",
+    "react": "^18.2.0",
+    "react-native": "^0.74.0",
+    "react-native-calendars": "^1.1406.0",
+    "react-native-vector-icons": "^10.0.0",
+    "@react-native-async-storage/async-storage": "^1.23.0",
+    "@react-navigation/native": "^6.1.0",
+    "@react-navigation/bottom-tabs": "^6.5.0",
+    "react-native-screens": "^3.29.0",
+    "react-native-safe-area-context": "^4.8.0",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@testing-library/react-native": "^12.4.0",
+    "jest": "^29.7.0",
+    "jest-expo": "^51.0.0",
+    "@types/jest": "^29.5.0"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "testEnvironment": "node",
+    "testMatch": ["**/__tests__/**/*.test.js"]
+  }
+}
