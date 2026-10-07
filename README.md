@@ -2,6 +2,28 @@
 
 Una aplicación móvil moderna para gestionar tareas, recordatorios, calendario integrado y notificaciones push. Construida con React Native y Expo.
 
+## ⚡ Inicio Rápido
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/Dark0444/TaskReminder.git
+cd TaskReminder
+
+# Instalar dependencias
+npm install
+
+# Opción A: Compilar con script helper
+./build.sh
+
+# Opción B: Compilar directamente con Expo
+eas build --platform android
+
+# Opción C: Compilación local
+npm run android
+```
+
+**Necesitas ayuda?** → Abre [BUILD_APK.md](./BUILD_APK.md)
+
 ## Características
 
 ✅ **Lista de Tareas** - Crea, edita y marca tareas como completadas
@@ -53,18 +75,38 @@ npm test
 npm test:watch
 ```
 
-## Build para APK
+## 🚀 Compilar APK para Android
+
+### Opción 1: Usar Script Helper (Más Fácil)
 
 ```bash
-# Compilar APK para Android
-npm run android
+# Linux/Mac
+chmod +x build.sh
+./build.sh
+
+# Windows
+# Ejecuta en Git Bash o PowerShell
+bash build.sh
 ```
 
-También puedes usar Expo:
+### Opción 2: Expo CLI (Recomendado - Sin PC)
 
 ```bash
+npm install -g eas-cli expo-cli
+eas login          # Tu cuenta Expo gratis
 eas build --platform android
+# Espera ~15 minutos y descarga desde https://expo.io/dashboard
 ```
+
+### Opción 3: Compilación Local (Requiere PC)
+
+```bash
+npm install
+npm run android
+# Archivo APK en: android/app/build/outputs/apk/release/app-release.apk
+```
+
+**👉 Lee [BUILD_APK.md](./BUILD_APK.md) para instrucciones detalladas**
 
 ## Estructura del Proyecto
 
